@@ -1,0 +1,17 @@
+.mainLayout {
+    display: flex;
+    flex-direction: row;
+    min-height: 100dvh;
+    max-width: 100dvw;
+    min-width: 100dvw;
+    background-color:aqua ;
+}
+
+.layoutMenu {
+    flex-grow: 1;
+}
+
+.layoutContent {
+    flex-grow: 8;
+    padding: 20px;
+}

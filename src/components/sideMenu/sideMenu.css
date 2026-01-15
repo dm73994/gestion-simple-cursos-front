@@ -1,0 +1,7 @@
+.sideMenu {
+    max-width: 20rem;
+    height: 100dvh;
+    background-color: #f4f4f4;
+    padding-top: 10px;
+    padding-inline: 20px;
+}
