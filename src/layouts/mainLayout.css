@@ -14,4 +14,19 @@
 .layoutContent {
     flex-grow: 8;
     padding: 20px;
+    background-color: beige;
+}
+
+@media screen and (max-width: 768px) {
+    .mainLayout {
+        flex-direction: column;
+    }
+
+    .layoutMenu {
+        flex-grow: 0;
+    }
+
+    .layoutContent {
+        order: 1;
+    }
 }
