@@ -31,7 +31,6 @@ const MainLayout = () => {
         )}
       </div>
       <div className="layoutContent">
-        MainLayout
         <Outlet />
       </div>
     </div>

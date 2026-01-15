@@ -5,10 +5,13 @@ import Modal from "../../components/modal/Modal";
 import CreateStudent from "../../forms/students/CreateStudent";
 import UpdateStudent from "../../forms/students/UpdateStudent";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
+import { PATHS } from "../../config/PATHS";
 
 const PAGE_SIZE = 10;
 
 const ViewStudentsPage = () => {
+  const navigate = useNavigate();
   const {
     fetchAllStudents,
     addStudent,
@@ -34,7 +37,7 @@ const ViewStudentsPage = () => {
   }, []);
 
   const handleView = (id: number) => {
-    console.log("Ver estudiante:", id);
+    navigate(PATHS.STUDENT_DETAILS.replace(":id", id.toString()));
   };
 
   const handleEdit = (id: number) => {
@@ -102,7 +105,7 @@ const ViewStudentsPage = () => {
           alignItems: "center",
         }}
       >
-        <h2 className="students-title">Estudiantes</h2>
+        <h2 className="title">Estudiantes</h2>
         <button
           className="students-add-button"
           onClick={() => setCreateOpen(true)}
@@ -146,7 +149,7 @@ const ViewStudentsPage = () => {
             <tbody>
               {paginatedStudents.map((student) => (
                 <tr key={student.id}>
-                  <td className="students-actions">
+                  <td className="actions">
                     <button
                       className="action-view"
                       onClick={() => handleView(student.id)}

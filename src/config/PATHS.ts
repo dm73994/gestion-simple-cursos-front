@@ -1,5 +1,5 @@
 export enum PATHS {
-    HOME = '/',
     STUDENTS = '/students',
+    STUDENT_DETAILS = '/students/:id',
     SUBJECTS = '/subjects',
 }
