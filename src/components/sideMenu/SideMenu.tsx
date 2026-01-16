@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 export interface MenuOption {
   label: string;
-  path: PATHS;
+  path: typeof PATHS[keyof typeof PATHS];
   icon?: JSX.Element;
 }
 
@@ -18,7 +18,7 @@ const SideMenu = ({ options, title }: SideMenuProps) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const navigateTo = (path: PATHS) => {
+  const navigateTo = (path: typeof PATHS[keyof typeof PATHS]) => {
     navigate(path);
   };
 

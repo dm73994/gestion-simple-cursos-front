@@ -4,6 +4,8 @@ import type { StudentRequest } from "../../data/request/StudentRequest";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import '../../components/form/formStyles.css';
+import InputForm from "../../components/form/InputForm";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -21,7 +23,7 @@ interface UpdateStudentProps {
 }
 
 const UpdateStudent = ({ studentId }: UpdateStudentProps) => {
-  const { fetchStudent, editStudent, isLoading, error } = useStudent();
+  const { fetchStudent, editStudent, isLoading } = useStudent();
   const [loadingData, setLoadingData] = useState(true);
 
   const {
@@ -60,32 +62,40 @@ const UpdateStudent = ({ studentId }: UpdateStudentProps) => {
   if (loadingData) return <p>Cargando información...</p>;
 
   return (
-    <form className="student-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-group">
-        <label>Nombre</label>
-        <input {...register("name")} />
-        {errors.name && <span>{errors.name.message}</span>}
-      </div>
+    <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
+      <InputForm
+        type="text"
+        label="Nombre"
+        props={{
+          ...register("name"),
+        }}
+        error={errors.name?.message}
+      />
+      <InputForm
+        type="text"
+        label="Apellido"
+        props={{
+          ...register("lastname"),
+        }}
+        error={errors.lastname?.message}
+      />
+      <InputForm
+        type="text"
+        label="DNI"
+        props={{
+          ...register("dni"),
+        }}
+        error={errors.dni?.message}
+      />
 
-      <div className="form-group">
-        <label>Apellido</label>
-        <input {...register("lastname")} />
-        {errors.lastname && <span>{errors.lastname.message}</span>}
-      </div>
-
-      <div className="form-group">
-        <label>DNI</label>
-        <input {...register("dni")} />
-        {errors.dni && <span>{errors.dni.message}</span>}
-      </div>
-
-      <div className="form-group">
-        <label>Fecha de nacimiento</label>
-        <input type="date" {...register("birthDate")} />
-        {errors.birthDate && <span>{errors.birthDate.message}</span>}
-      </div>
-
-      {error && <p className="error-text">{error}</p>}
+      <InputForm
+        type="date"
+        label="Fecha de nacimiento"
+        props={{
+          ...register("birthDate"),
+        }}
+        error={errors.birthDate?.message}
+      />
 
       <button type="submit" disabled={isLoading}>
         Guardar cambios

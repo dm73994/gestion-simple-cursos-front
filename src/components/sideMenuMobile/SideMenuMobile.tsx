@@ -22,7 +22,7 @@ const SideMenuMobile = ({ options, title }: SideMenuMobileProps) => {
     setOpen(true);
   };
 
-  const handleClickOption = (path: PATHS) => {
+  const handleClickOption = (path: typeof PATHS[keyof typeof PATHS]) => {
     navigate(path, { replace: true });
     handleClose();
   };

@@ -10,7 +10,6 @@ import EditSubject from "../../forms/subjects/EditSubject";
 const ViewSubjects = () => {
   const {
     subjects,
-    error,
     isLoading,
     fetchAllSubjects,
     addSubject,
@@ -129,13 +128,18 @@ const ViewSubjects = () => {
           </div>
         ))}
 
-      <Modal open={openCreate} onClose={() => setOpenCreate(false)}>
+      <Modal
+        open={openCreate}
+        onClose={() => setOpenCreate(false)}
+        title="Crear Nueva Materia"
+      >
         <CreateSubject onCreate={handleAddSubject} />
       </Modal>
 
       <Modal
         open={openEdit.open}
         onClose={() => setOpenEdit({ open: false, subjectId: null })}
+        title="Editar Materia"
       >
         <EditSubject
           subjectId={openEdit.subjectId!}

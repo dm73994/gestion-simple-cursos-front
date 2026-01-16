@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import type { StudentRequest } from "../../data/request/StudentRequest";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import InputForm from "../../components/form/InputForm";
 
 export const studentSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -33,6 +34,7 @@ const CreateStudent = ({ onCreate }: CreateStudentProps) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset
   } = useForm<StudentRequest>({
     resolver: zodResolver(studentSchema),
     defaultValues: {
@@ -45,33 +47,44 @@ const CreateStudent = ({ onCreate }: CreateStudentProps) => {
 
   const onSubmit = (data: StudentRequest) => {
     onCreate(data);
+    reset();
   };
 
   return (
-    <form className="student-form" onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Nombre</label>
-        <input {...register("name")} />
-        {errors.name && <span>{errors.name.message}</span>}
-      </div>
+    <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
+      <InputForm
+        type="text"
+        label="Nombre"
+        props={{
+          ...register("name"),
+        }}
+        error={errors.name?.message}
+      />
+      <InputForm
+        type="text"
+        label="Apellido"
+        props={{
+          ...register("lastname"),
+        }}
+        error={errors.lastname?.message}
+      />
+      <InputForm
+        type="text"
+        label="DNI"
+        props={{
+          ...register("dni"),
+        }}
+        error={errors.dni?.message}
+      />
 
-      <div>
-        <label>Apellido</label>
-        <input {...register("lastname")} />
-        {errors.lastname && <span>{errors.lastname.message}</span>}
-      </div>
-
-      <div>
-        <label>DNI</label>
-        <input {...register("dni")} inputMode="numeric" pattern="[0-9]*" />
-        {errors.dni && <span>{errors.dni.message}</span>}
-      </div>
-
-      <div>
-        <label>Fecha de nacimiento</label>
-        <input type="date" {...register("birthDate")} />
-        {errors.birthDate && <span>{errors.birthDate.message}</span>}
-      </div>
+      <InputForm
+        type="date"
+        label="Fecha de nacimiento"
+        props={{
+          ...register("birthDate"),
+        }}
+        error={errors.birthDate?.message}
+      />
 
       <button type="submit" disabled={isSubmitting}>
         Guardar

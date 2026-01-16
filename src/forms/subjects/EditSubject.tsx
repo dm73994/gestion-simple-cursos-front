@@ -4,6 +4,7 @@ import useSubject from "../../hooks/useSubject";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import InputForm from "../../components/form/InputForm";
 
 export const subjectSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -56,27 +57,26 @@ const EditSubject = ({ subjectId, onUpdate }: EditSubjectProps) => {
   };
 
   return (
-    <form className="subject-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-group">
-        <label>Nombre</label>
-        <input {...register("name")} />
-        {errors.name && <span>{errors.name.message}</span>}
-      </div>
+    <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
+      <InputForm
+        type="text"
+        label="Nombre"
+        error={errors.name?.message}
+        props={{ ...register("name") }}
+      />
 
-      <div className="form-group">
-        <label>Código</label>
-        <input type="number" {...register("code", { valueAsNumber: true })} />
-        {errors.code && <span>{errors.code.message}</span>}
-      </div>
-
-      <div className="form-group">
-        <label>Créditos</label>
-        <input
-          type="number"
-          {...register("credits", { valueAsNumber: true })}
-        />
-        {errors.credits && <span>{errors.credits.message}</span>}
-      </div>
+      <InputForm
+        type="number"
+        label="Código"
+        error={errors.code?.message}
+        props={{ ...register("code", { valueAsNumber: true }) }}
+      />
+      <InputForm
+        type="number"
+        label="Créditos"
+        error={errors.credits?.message}
+        props={{ ...register("credits", { valueAsNumber: true }) }}
+      />
 
       {error && <p className="error-text">{error}</p>}
 

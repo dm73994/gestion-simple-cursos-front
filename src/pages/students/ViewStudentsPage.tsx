@@ -17,7 +17,6 @@ const ViewStudentsPage = () => {
     addStudent,
     removeStudent,
     isLoading,
-    error,
     students,
   } = useStudent();
   const [createOpen, setCreateOpen] = useState(false);

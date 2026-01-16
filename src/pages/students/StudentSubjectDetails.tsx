@@ -24,8 +24,6 @@ const StudentSubjectDetails = () => {
   const {
     subjects,
     fetchAllSubjects,
-    isLoading: isSubjectsLoading,
-    error: subjectsError,
   } = useSubject();
   const {
     notes,
