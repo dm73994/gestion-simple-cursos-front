@@ -80,7 +80,7 @@ const EditSubject = ({ subjectId, onUpdate }: EditSubjectProps) => {
 
       {error && <p className="error-text">{error}</p>}
 
-      <button type="submit" disabled={isLoading}>
+      <button type="submit" disabled={isLoading} className="btn-primary">
         Actualizar materia
       </button>
     </form>

@@ -98,7 +98,7 @@ const UpdateStudent = ({ studentId, onUpdate }: UpdateStudentProps) => {
         error={errors.birthDate?.message}
       />
 
-      <button type="submit" disabled={isLoading}>
+      <button type="submit" disabled={isLoading} className="btn-primary">
         Guardar cambios
       </button>
     </form>

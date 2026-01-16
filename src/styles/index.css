@@ -8,6 +8,8 @@
     align-items: start;
     justify-content: center;
     padding: 24px;
+    min-width: 90%;
+    max-width: 90dvw;
 }
 
 .header {
@@ -24,11 +26,11 @@
 }
 
 .action-view {
-  color: #2563eb;
+  color: #059669;
 }
 
 .action-edit {
-  color: #059669;
+  color: #d97706;
 }
 
 .action-delete {
@@ -61,4 +63,108 @@
 .caption2{
     font-size: 0.75rem;
     color: #9ca3af;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+  min-height: 40px;
+
+  background-color: #2563eb;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #1e40af;
+}
+
+.btn-primary:active {
+  background-color: #1e3a8a;
+}
+
+.btn-primary:disabled,
+.btn-primary[disabled] {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.9;
+}
+
+
+.btn-edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 8px 14px;
+  min-height: 36px;
+
+  background-color: #f59e0b;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: #d97706;
+}
+
+.btn-edit:active {
+  background-color: #b45309;
+}
+
+
+
+.btn-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 8px 14px;
+  min-height: 36px;
+
+  background-color: #dc2626;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #b91c1c;
+}
+
+.btn-delete:active {
+  background-color: #991b1b;
 }

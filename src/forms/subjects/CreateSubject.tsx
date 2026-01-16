@@ -63,7 +63,7 @@ const CreateSubject = ({ onCreate }: CreateSubjectProps) => {
         props={{ ...register("credits", { valueAsNumber: true }) }}
       />
 
-      <button type="submit">Crear materia</button>
+      <button type="submit" className="btn-primary">Crear materia</button>
     </form>
   );
 };

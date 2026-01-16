@@ -86,7 +86,7 @@ const CreateStudent = ({ onCreate }: CreateStudentProps) => {
         error={errors.birthDate?.message}
       />
 
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" disabled={isSubmitting} className="btn-primary">
         Guardar
       </button>
     </form>

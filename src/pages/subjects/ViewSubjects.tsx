@@ -6,6 +6,7 @@ import CreateSubject from "../../forms/subjects/CreateSubject";
 import type { SubjectRequest } from "../../data/request/SubjectRequest";
 import Swal from "sweetalert2";
 import EditSubject from "../../forms/subjects/EditSubject";
+import SubjectCard from "./components/SubjectCard";
 
 const ViewSubjects = () => {
   const {
@@ -77,7 +78,7 @@ const ViewSubjects = () => {
     <div className="container">
       <div className="header">
         <h2>Materias</h2>
-        <button onClick={() => setOpenCreate(true)}>
+        <button onClick={() => setOpenCreate(true)} className="btn-primary">
           <i className="bi bi-plus-lg" />
           Agregar Materia
         </button>
@@ -89,44 +90,22 @@ const ViewSubjects = () => {
         <p>No hay materias disponibles.</p>
       )}
 
-      {!isLoading &&
-        subjects.length > 0 &&
-        subjects.map((subject) => (
-          <div key={subject.id} className="subject-card">
-            <h3 className="subject-card-title">{subject.name}</h3>
-
-            <div className="header">
-              <p className="caption1">
-                Código
-                <span> · </span>
-                <span className="caption2">{subject.code}</span>
-              </p>
-
-              <p className="caption1">
-                Créditos
-                <span> · </span>
-                <span className="caption2">{subject.credits}</span>
-              </p>
-            </div>
-
-            <div className="actions">
-              <button
-                onClick={() =>
-                  setOpenEdit({ open: true, subjectId: subject.id })
-                }
-                className="action-edit"
-              >
-                <i className="bi bi-pencil-fill" /> Editar
-              </button>
-              <button
-                onClick={() => handleDeleteSubject(subject.id)}
-                className="action-delete"
-              >
-                <i className="bi bi-trash-fill" /> Eliminar
-              </button>
-            </div>
-          </div>
-        ))}
+      <div className="subjects-list">
+        {!isLoading &&
+          subjects.length > 0 &&
+          subjects.map((subject) => (
+            <SubjectCard
+              onDelete={(id: number) => {
+                handleDeleteSubject(id);
+              }}
+              onEdit={(id: number) => {
+                setOpenEdit({ open: true, subjectId: id });
+              }}
+              subject={subject}
+              key={subject.id}
+            />
+          ))}
+      </div>
 
       <Modal
         open={openCreate}

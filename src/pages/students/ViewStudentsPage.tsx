@@ -113,17 +113,11 @@ const ViewStudentsPage = () => {
   }, [filteredStudents, page]);
 
   return (
-    <div className="students-container">
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+    <div className="container">
+      <div className="header">
         <h2 className="title">Estudiantes</h2>
         <button
-          className="students-add-button"
+          className="btn-primary"
           onClick={() => setCreateOpen(true)}
         >
           <i className="bi bi-plus-lg" /> Agregar Estudiante
@@ -147,7 +141,7 @@ const ViewStudentsPage = () => {
       {!isLoading && paginatedStudents.length === 0 && (
         <p className="students-info">No hay estudiantes disponibles.</p>
       )}
-
+<div className="students-table-wrapper">
       {paginatedStudents.length > 0 && (
         <>
           <table className="students-table">
@@ -214,6 +208,7 @@ const ViewStudentsPage = () => {
           </div>
         </>
       )}
+      </div>
 
       <Modal
         open={createOpen}

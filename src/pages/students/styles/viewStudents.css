@@ -1,11 +1,8 @@
-.students-container {
-  padding: 24px;
-}
-
 .students-search {
   display: flex;
   gap: 8px;
   margin-bottom: 16px;
+  width: 100%;
 }
 
 .students-search input {
@@ -38,11 +35,11 @@
 
 .students-table {
   width: 100%;
+  min-width: 720px;
   border-collapse: collapse;
   background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
 }
+
 
 .students-table th,
 .students-table td {
@@ -75,3 +72,13 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.students-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+

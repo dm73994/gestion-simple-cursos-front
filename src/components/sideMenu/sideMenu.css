@@ -1,73 +1,102 @@
-a {
-    text-decoration: none;
-    color: #333;
-}
-p {
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-}
-h4 {
-    margin: 0;
-    padding: 0;
-    line-height: 1;
+.sideMenu {
+  height: 100dvh;
+  background-color: #ffffff;
+
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
+
+  transition: width 0.25s ease;
+  overflow: hidden;
 }
 
-.sideMenu {
-    max-width: 10rem;
-    height: 100dvh;
-    background-color: #fff;
-    padding-top: 10px;
-    padding-inline: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+.sideMenu.is-open {
+  width: 180px;
+}
+
+.sideMenu.is-closed {
+  width: 56px;
 }
 
 .sideMenu-header {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    justify-content: space-between;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 12px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.sideMenu-toggle{
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0; 
+.sideMenu-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.sideMenu-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+
+  color: #374151;
+  transition: background-color 0.15s ease;
+}
+
+.sideMenu-toggle:hover {
+  background-color: #f3f4f6;
 }
 
 .sideMenu-options {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 20px;
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .sideMenu-option {
-    cursor: pointer;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 5px;
-    padding-block: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 12px;
+  border-radius: 8px;
+
+  cursor: pointer;
+  color: #374151;
+  font-size: 14px;
+
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .sideMenu-option:hover {
-    background-color: #e0e0e0;
-    border-radius: 5px;
+  background-color: #f3f4f6;
+  color: #111827;
 }
 
-.open {
-    width: 10rem;
-    transition: width 0.3s ease;
+.sideMenu-icon {
+  min-width: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
 }
 
-.close {
-    width: 2rem;
-    transition: width 0.3s ease;
+.sideMenu-label {
+  white-space: nowrap;
 }
 
-.close .sideMenu-header {
-    justify-content: end;
-}
