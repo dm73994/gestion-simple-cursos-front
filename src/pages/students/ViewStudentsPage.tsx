@@ -8,11 +8,13 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { PATHS } from "../../config/PATHS";
 import type { StudentRequest } from "../../data/request/StudentRequest";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const PAGE_SIZE = 10;
 
 const ViewStudentsPage = () => {
   const navigate = useNavigate();
+  const { matches } = useMediaQuery({ query: "(max-width: 768px)" });
   const {
     fetchAllStudents,
     addStudent,
@@ -30,6 +32,7 @@ const ViewStudentsPage = () => {
     studentId: null,
   });
 
+  const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
@@ -52,6 +55,11 @@ const ViewStudentsPage = () => {
     try {
       await editStudent(editOpen.studentId!, data);
       setEditOpen({ open: false, studentId: null });
+      Swal.fire(
+        "Éxito",
+        "El estudiante ha sido actualizado correctamente.",
+        "success"
+      );
     } catch (error) {
       if (error instanceof Error) {
         Swal.fire(
@@ -81,17 +89,27 @@ const ViewStudentsPage = () => {
     });
   };
 
-  const handleSearch = () => {
-    setPage(1);
+  const handleSort = () => {
+    const newSort = sort === "asc" ? "desc" : "asc";
+    setSort(newSort);
   };
 
   const handleAddStudent = async (data: any) => {
     try {
       await addStudent(data);
       setCreateOpen(false);
+      Swal.fire(
+        "Éxito",
+        "El estudiante ha sido creado correctamente.",
+        "success"
+      );
     } catch (error) {
       if (error instanceof Error) {
-        window.alert("Error al crear el estudiante: " + error.message);
+        Swal.fire(
+          "Error",
+          "Error al crear el estudiante: " + error.message,
+          "error"
+        );
       }
       throw error;
     }
@@ -116,10 +134,7 @@ const ViewStudentsPage = () => {
     <div className="container">
       <div className="header">
         <h2 className="title">Estudiantes</h2>
-        <button
-          className="btn-primary"
-          onClick={() => setCreateOpen(true)}
-        >
+        <button className="btn-primary" onClick={() => setCreateOpen(true)}>
           <i className="bi bi-plus-lg" /> Agregar Estudiante
         </button>
       </div>
@@ -131,8 +146,12 @@ const ViewStudentsPage = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={handleSearch}>
-          <i className="bi bi-search" />
+        <button onClick={handleSort}>
+          {sort === "asc" ? (
+            <i className="bi bi-sort-down"></i>
+          ) : (
+            <i className="bi bi-sort-up"></i>
+          )}
         </button>
       </div>
 
@@ -141,73 +160,85 @@ const ViewStudentsPage = () => {
       {!isLoading && paginatedStudents.length === 0 && (
         <p className="students-info">No hay estudiantes disponibles.</p>
       )}
-<div className="students-table-wrapper">
-      {paginatedStudents.length > 0 && (
-        <>
-          <table className="students-table">
-            <thead>
-              <tr>
-                <th>Acciones</th>
-                <th>ID</th>
-                <th>DNI</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Nacimiento</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {paginatedStudents.map((student) => (
-                <tr key={student.id}>
-                  <td className="actions">
-                    <button
-                      className="action-view"
-                      onClick={() => handleView(student.id)}
-                    >
-                      <i className="bi bi-eye-fill" />
-                    </button>
-                    <button
-                      className="action-edit"
-                      onClick={() => handleEdit(student.id)}
-                    >
-                      <i className="bi bi-pencil-fill" />
-                    </button>
-                    <button
-                      className="action-delete"
-                      onClick={() => handleDelete(student.id)}
-                    >
-                      <i className="bi bi-trash-fill" />
-                    </button>
-                  </td>
-
-                  <td>{student.id}</td>
-                  <td>{student.dni}</td>
-                  <td>{student.name}</td>
-                  <td>{student.lastname}</td>
-                  <td>{new Date(student.birthDate).toLocaleDateString()}</td>
+      <div className="students-table-wrapper">
+        {paginatedStudents.length > 0 && (
+          <>
+            <table className="students-table">
+              <thead>
+                <tr>
+                  <th>Acciones</th>
+                  <th hidden={matches}>ID</th>
+                  <th hidden={matches}>DNI</th>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th hidden={matches}>Nacimiento</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
 
-          <div className="students-pagination">
-            <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-              Anterior
-            </button>
+              <tbody>
+                {paginatedStudents
+                  .sort((a, b) => (sort === "asc" ? a.id - b.id : b.id - a.id))
+                  .map((student) => (
+                    <tr key={student.id}>
+                      <td className="actions">
+                        <button
+                          className="action-view"
+                          onClick={() => handleView(student.id)}
+                        >
+                          <i className="bi bi-eye-fill" />
+                        </button>
+                        <button
+                          className="action-edit"
+                          onClick={() => handleEdit(student.id)}
+                        >
+                          <i className="bi bi-pencil-fill" />
+                        </button>
+                        <button
+                          className="action-delete"
+                          onClick={() => handleDelete(student.id)}
+                        >
+                          <i className="bi bi-trash-fill" />
+                        </button>
+                      </td>
 
-            <span>
-              Página {page} de {totalPages}
-            </span>
+                      <td hidden={matches}>{student.id}</td>
+                      <td hidden={matches}>{student.dni}</td>
+                      <td>{student.name}</td>
+                      <td>{student.lastname}</td>
+                      <td hidden={matches}>
+                        {new Date(student.birthDate).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </>
+        )}
+      </div>
+      <div className="students-pagination">
+        <button
+          disabled={page === 1}
+          onClick={() => {
+            setPage((p) => p - 1);
+            window.scrollTo(0, 0);
+          }}
+        >
+          Anterior
+        </button>
 
-            <button
-              disabled={page === totalPages}
-              onClick={() => setPage((p) => p + 1)}
-            >
-              Siguiente
-            </button>
-          </div>
-        </>
-      )}
+        <span>
+          Página {page} de {totalPages}
+        </span>
+
+        <button
+          disabled={page === totalPages}
+          onClick={() => {
+            setPage((p) => p + 1);
+            window.scrollTo(0, 0);
+          }}
+        >
+          Siguiente
+        </button>
       </div>
 
       <Modal
