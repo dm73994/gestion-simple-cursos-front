@@ -56,12 +56,12 @@ const useStudent = () => {
     }
   };
 
-  const editStudent = async (student: StudentRequest) => {
+  const editStudent = async (id: number, student: StudentRequest) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const success = await updateStudent(student);
+      const success = await updateStudent(id, student);
       if (success) {
         await fetchAllStudents();
       }

@@ -20,10 +20,11 @@ const schema = z.object({
 
 interface UpdateStudentProps {
   studentId: number;
+  onUpdate: (data: StudentRequest) => void;
 }
 
-const UpdateStudent = ({ studentId }: UpdateStudentProps) => {
-  const { fetchStudent, editStudent, isLoading } = useStudent();
+const UpdateStudent = ({ studentId, onUpdate }: UpdateStudentProps) => {
+  const { fetchStudent,  isLoading } = useStudent();
   const [loadingData, setLoadingData] = useState(true);
 
   const {
@@ -56,7 +57,7 @@ const UpdateStudent = ({ studentId }: UpdateStudentProps) => {
   }, [studentId]);
 
   const onSubmit = async (formData: StudentRequest) => {
-    await editStudent(formData);
+    onUpdate(formData);
   };
 
   if (loadingData) return <p>Cargando información...</p>;

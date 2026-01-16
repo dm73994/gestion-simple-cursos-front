@@ -13,6 +13,7 @@ export const fetchStudents = async (): Promise<StudentModel[]> => {
 
 export const fetchStudentById = async (id: number): Promise<StudentModel> => {
   try {
+    if(!id) throw new Error("ID del estudiante no proporcionado");
     const res = await customAxios.get<StudentModel>(`/students/${id}`);
     return res.data;
   } catch (error) {
@@ -32,10 +33,12 @@ export const createStudent = async (
 };
 
 export const updateStudent = async (
+  id: number,
   student: StudentRequest
 ): Promise<boolean> => {
   try {
-    const res = await customAxios.put(`/students/${student.id}`, student);
+    if(!id) throw new Error("ID del estudiante no proporcionado");
+    const res = await customAxios.put(`/students/${id}`, student);
     return res.status === 200 ? true : false;
   } catch (error) {
     throw error;

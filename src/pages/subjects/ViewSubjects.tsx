@@ -136,16 +136,18 @@ const ViewSubjects = () => {
         <CreateSubject onCreate={handleAddSubject} />
       </Modal>
 
-      <Modal
-        open={openEdit.open}
-        onClose={() => setOpenEdit({ open: false, subjectId: null })}
-        title="Editar Materia"
-      >
-        <EditSubject
-          subjectId={openEdit.subjectId!}
-          onUpdate={handleUpdateSubject}
-        />
-      </Modal>
+      {openEdit.subjectId && (
+        <Modal
+          open={openEdit.open}
+          onClose={() => setOpenEdit({ open: false, subjectId: null })}
+          title="Editar Materia"
+        >
+          <EditSubject
+            subjectId={openEdit.subjectId!}
+            onUpdate={handleUpdateSubject}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

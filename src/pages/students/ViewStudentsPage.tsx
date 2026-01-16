@@ -7,6 +7,7 @@ import UpdateStudent from "../../forms/students/UpdateStudent";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { PATHS } from "../../config/PATHS";
+import type { StudentRequest } from "../../data/request/StudentRequest";
 
 const PAGE_SIZE = 10;
 
@@ -15,6 +16,7 @@ const ViewStudentsPage = () => {
   const {
     fetchAllStudents,
     addStudent,
+    editStudent,
     removeStudent,
     isLoading,
     students,
@@ -44,6 +46,21 @@ const ViewStudentsPage = () => {
       open: true,
       studentId: id,
     });
+  };
+
+  const onUpdate = async (data: StudentRequest) => {
+    try {
+      await editStudent(editOpen.studentId!, data);
+      setEditOpen({ open: false, studentId: null });
+    } catch (error) {
+      if (error instanceof Error) {
+        Swal.fire(
+          "Error",
+          "Error al actualizar el estudiante: " + error.message,
+          "error"
+        );
+      }
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -206,13 +223,15 @@ const ViewStudentsPage = () => {
         <CreateStudent onCreate={handleAddStudent} />
       </Modal>
 
-      <Modal
-        open={editOpen.open}
-        onClose={() => setEditOpen({ open: false, studentId: null })}
-        title="Editar Estudiante"
-      >
-        <UpdateStudent studentId={editOpen.studentId!} />
-      </Modal>
+      {editOpen.studentId && (
+        <Modal
+          open={editOpen.open}
+          onClose={() => setEditOpen({ open: false, studentId: null })}
+          title="Editar Estudiante"
+        >
+          <UpdateStudent studentId={editOpen.studentId!} onUpdate={onUpdate} />
+        </Modal>
+      )}
     </div>
   );
 };
